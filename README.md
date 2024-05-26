@@ -10,7 +10,7 @@ Click in the **use this template** button or clone this repository.
 
 - [x] Create css style file
 - [x] Create functions file
-- [ ] Create symbolic link to public folder
+- [x] Create symbolic link to public folder
 - [ ] Implements versioning
 - [ ] Create a screenshot image
 - [x] Install composer

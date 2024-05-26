@@ -10,7 +10,11 @@ class SolarWP
   {
     self::load_env();
 
+    // Build the directory structure
     BuildDir::init();
+
+    // Create the symbolic link to the public directory
+    SymbolinkPublicDir::init();
   }
 
   public static function init()
