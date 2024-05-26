@@ -9,6 +9,11 @@ use const SITE_URL;
  * in this section implements vitejs output directory structure.
  *
  * @package Aprosglobal\Solarwp\core
+ * @author  Aprosglobal <info@apros.global>
+ * @license GNU General Public License v2.0+
+ * @link    https://github.com/aprosglobal/solarwp
+ * @version 0.0.1
+ * @since   0.0.1
  */
 
 #[\Attribute]
