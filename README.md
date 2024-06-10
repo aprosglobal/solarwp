@@ -11,7 +11,7 @@ Click in the **use this template** button or clone this repository.
 - [x] Create css style file
 - [x] Create functions file
 - [x] Create symbolic link to public folder
-- [ ] Implements versioning
+- [x] Implements versioning
 - [ ] Create a screenshot image
 - [x] Install composer
 - [ ] Install vitejs
