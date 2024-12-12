@@ -14,7 +14,7 @@ Click in the **use this template** button or clone this repository.
 - [x] Implements versioning
 - [ ] Create a screenshot image
 - [x] Install composer
-- [ ] Install vitejs
+- [x] Install vitejs
 - [ ] sync php server with node server for hotload in the changes
 - [ ] Implements script modules
 - [ ] Implements admin builder

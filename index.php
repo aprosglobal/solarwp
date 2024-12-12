@@ -28,6 +28,6 @@ if (have_posts()) {
   echo 'Lo siento, no se encontraron entradas.';
 }
 
-
 get_sidebar();
 get_footer();
+?>

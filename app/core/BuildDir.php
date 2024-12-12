@@ -2,7 +2,7 @@
 
 namespace Aprosglobal\Solarwp\core;
 
-use const SITE_URL;
+use Spatie\Ignition\Ignition;
 
 /**
  * This class is used to build the directory structure of the child theme.
@@ -22,22 +22,66 @@ class BuildDir
 
   public static function init()
   {
-    $json_data = json_encode(self::credentials());
 
-    if (boolval(getenv('IS_DEV'))) {
-      $vite_port = 5173;
-      if (getenv('VITE_PORT')) {
-        $vite_port = getenv('VITE_PORT');
-      }
+    $json_data = json_encode(self::credentials());
+    if (env('APP_ENV', 'production') === 'development') {
+
 
       //Init Beatiful error view
-      \Spatie\Ignition\Ignition::make()
-        ->applicationPath(get_theme_file_path())
-        ->register();
+      set_exception_handler(function (\Throwable $e) {
+        // Clear output buffer to prevent partial rendering
+        while (ob_get_level() > 0) {
+          ob_end_clean();
+        }
+
+        // Display Ignition's error page
+        if (class_exists(Ignition::class)) {
+          echo "<div class='error-page'>";
+          Ignition::make()
+            ->registerMiddleware([
+              function ($report, $next) {
+                $report->group('WordPress Info', [
+                  'Version' => get_bloginfo('version'),
+                  'Theme' => wp_get_theme()->get('Name'),
+                ]);
+                return $next($report);
+              }
+            ])
+            ->setTheme('dark')
+            ->applicationPath(get_stylesheet_directory()) // Set to project root
+            ->shouldDisplayException(true)
+            ->register()
+            ->handleException($e);
+          echo "</div>";
+          echo "
+          // <style>
+          //   :after, :before, :not(iframe) {
+          //       position: unset;
+          //   }
+          //   .error-page {
+          //     position: absolute;
+          //     top: 0;
+          //     left: 0;
+          //     width: 100%;
+          //     height: 100%;
+          //     background: black;
+          //   }
+          // </style>
+        ";
+        } else {
+          echo '<pre>';
+          print_r($e);
+          echo '</pre>';
+        }
+
+        exit; // Prevent further execution
+      });
+
 
 
       // We need to add HMR ;)
-      add_action("wp_footer", function () use ($json_data, $vite_port) {
+      add_action("wp_footer", function () use ($json_data) {
+        $vite_port = env('VITE_PORT', 5173);
         echo "
             <script type='module'>
               var wpCredentials = $json_data

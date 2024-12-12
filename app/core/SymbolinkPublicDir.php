@@ -42,11 +42,16 @@ class SymbolinkPublicDir
 
     // If the symbolic link does not exist, create it
     if (!file_exists($symbolink_link)) {
-      if (symlink($public_dir, $symbolink_link)) {
-        // echo 'Created'; // Successfully created the symbolic link
+      // Create the public directory if it doesn't exist
+      if (is_dir($public_dir)) {
+        if (symlink($public_dir, $symbolink_link)) {
+          // echo 'Created'; // Successfully created the symbolic link
+        } else {
+          echo 'Error'; // Failed to create the symbolic link
+          throw new \Exception('Failed to create symbolic link');
+        }
       } else {
-        echo 'Error'; // Failed to create the symbolic link
-        throw new \Exception('Failed to create symbolic link');
+        throw new \Exception('Public directory does not exist, create a public directory');
       }
     }
   }

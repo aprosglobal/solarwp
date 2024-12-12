@@ -2,7 +2,9 @@
 
 namespace Aprosglobal\Solarwp\core;
 
+
 use Dotenv\Dotenv;
+// use Symfony\Component\Dotenv\Dotenv;
 
 class SolarWP
 {
@@ -29,13 +31,8 @@ class SolarWP
    */
   public static function load_env(): void
   {
-    // find the .env file and load it
-    // if not found, do nothing
-    // if found, load it
-    if (!self::find_theme_files('.env') && !self::find_theme_files('.env.production')) return;
-
     $dotenv = Dotenv::createUnsafeMutable(get_stylesheet_directory());
-    $dotenv->load();
+    $dotenv->safeLoad();
   }
 
   /**
