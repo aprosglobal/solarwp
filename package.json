@@ -1,23 +1,21 @@
 {
   "name": "solarwp",
-  "module": "index.ts",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "release": "release-it"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aprosglobal/solarwp"
   },
   "devDependencies": {
     "@release-it/conventional-changelog": "^8.0.1",
-    "@types/bun": "latest",
     "release-it": "^17.2.1",
     "vite": "^5.2.11"
   },
   "peerDependencies": {
     "typescript": "^5.4.5"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aprosglobal/solarwp"
-  }
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "release": "release-it"
+  },
+  "type": "module"
 }
