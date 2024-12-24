@@ -17,6 +17,12 @@ class SolarWP
 
     // Create the symbolic link to the public directory
     SymbolinkPublicDir::init();
+
+    // Register the carbon fields
+    // CarbonFields::init();
+
+    // Register the customizer
+    CustomizeRegister::init();
   }
 
   public static function init()
