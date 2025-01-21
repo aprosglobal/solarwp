@@ -3,6 +3,7 @@
 namespace Aprosglobal\Solarwp\core;
 
 use Spatie\Ignition\Ignition;
+use Idleberg\ViteManifest\Manifest;
 
 /**
  * This class is used to build the directory structure of the child theme.
@@ -78,7 +79,6 @@ class BuildDir
       });
 
 
-
       // We need to add HMR ;)
       add_action("wp_footer", function () use ($json_data) {
         $vite_port = env('VITE_PORT', 5173);
@@ -91,14 +91,54 @@ class BuildDir
           ";
       }, 30);
     } else {
-      add_action("wp_footer", function () {
-        $script = <<<HTML
-            <script>
-             console.log(222,3303);
-            </script>
-          HTML;
-        echo $script;
-      }, 30);
+
+      $baseUrl = home_url();
+      $manifestPath = 'dist/.vite/manifest.json';
+
+      // Check if the manifest file exists before attempting to load it
+      $manifest = get_public_file($manifestPath);
+      if (!$manifest) {
+        error_log("Manifest file not found at: $manifestPath");
+        return;
+      }
+
+      $vm = new Manifest($manifest, $baseUrl);
+      $entrypoints = $vm?->getEntrypoints() ?? [];
+
+      foreach ($entrypoints as $entrypoint) {
+        // Validate that required keys exist in the entrypoint
+        if (!isset($entrypoint['file'], $entrypoint['isEntry'])) {
+          continue;
+        }
+
+        $file = $entrypoint['file'];
+        $isEntry = $entrypoint['isEntry'];
+        $css = $entrypoint['css'] ?? [];
+
+        // Add main script if it is an entry point
+        if ($isEntry) {
+          add_action('wp_head', function () use ($file, $baseUrl) {
+            printf(
+              "<script type='module' src='%s/public/dist/%s' defer></script>\n",
+              esc_url($baseUrl),
+              esc_attr($file)
+            );
+          }, 30);
+        }
+
+        // Add linked CSS files
+        if (!empty($css)) {
+          foreach ($css as $cssFile) {
+            add_action('wp_head', function () use ($cssFile, $baseUrl) {
+              printf(
+                "<link rel='stylesheet' href='%s/public/dist/%s'>\n",
+                esc_url($baseUrl),
+                esc_attr($cssFile)
+              );
+            }, 30);
+          }
+        }
+      }
     }
   }
 
@@ -110,7 +150,7 @@ class BuildDir
   {
     return array(
       'domain' => site_url("/"),
-      'public_url' => get_stylesheet_directory_uri() . '/public',
+      'public_url' => site_url('/public'),
       'ajax_url' => admin_url('admin-ajax.php'),
       'security' => wp_create_nonce('consult_ajax'),
     );

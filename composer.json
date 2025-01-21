@@ -1,33 +1,34 @@
 {
-    "name": "aprosglobal/solarwp",
-    "description": "A simple wordpress theme creator",
-    "type": "project",
-    "require": {
-        "spatie/ignition": "^1.14"
-    },
-    "require-dev": {
-        "vlucas/phpdotenv": "5.6.x-dev"
-    },
-    "autoload": {
-        "files": [
-            "app/helpers/bootstrap.php"
-        ],
-        "psr-4": {
-            "Aprosglobal\\Solarwp\\": "app/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Apros",
-            "homepage": "https://apros.global",
-            "role": "Admin"
-        },
-        {
-            "name": "Oswa dev",
-            "homepage": "https://oswa.dev",
-            "email": "oswaldohuillca@gmail.com",
-            "role": "Developer"
-        }
+  "name": "aprosglobal/solarwp",
+  "description": "A simple wordpress theme creator",
+  "type": "project",
+  "require": {
+    "spatie/ignition": "^1.14",
+    "idleberg/vite-manifest": "dev-main"
+  },
+  "require-dev": {
+    "vlucas/phpdotenv": "5.6.x-dev"
+  },
+  "autoload": {
+    "files": [
+      "app/helpers/bootstrap.php"
     ],
-    "minimum-stability": "dev"
+    "psr-4": {
+      "Aprosglobal\\Solarwp\\": "app/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Apros",
+      "homepage": "https://apros.global",
+      "role": "Admin"
+    },
+    {
+      "name": "Oswa dev",
+      "homepage": "https://oswa.dev",
+      "email": "oswaldohuillca@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "minimum-stability": "dev"
 }
