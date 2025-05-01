@@ -1,5 +1,6 @@
 <?php
 
+
 if (!defined('ABSPATH')) {
   exit; // Exit if accessed directly.
 }
@@ -28,6 +29,8 @@ use Aprosglobal\Solarwp\core\SolarWP;
 | Register The Theme
 |--------------------------------------------------------------------------
 |
+| This function is called by WordPress to register the theme.
+| It is called when the theme is activated or when the theme is
 |
 */
 

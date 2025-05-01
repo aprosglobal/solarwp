@@ -175,5 +175,6 @@ dist
 
 # locks
 bun.lockb
+bun.lock
 composer.lock
 /vendor/
