@@ -5,12 +5,14 @@
     "url": "git+https://github.com/aprosglobal/solarwp"
   },
   "devDependencies": {
-    "@release-it/conventional-changelog": "^8.0.1",
-    "release-it": "^17.2.1",
-    "vite": "^5.2.11"
+    "@release-it/conventional-changelog": "8.0.1",
+    "@types/node": "22.15.3",
+    "release-it": "19.0.1",
+    "vite": "6.3.4",
+    "wordpress-vite-plugin": "1.4.0"
   },
   "peerDependencies": {
-    "typescript": "^5.4.5"
+    "typescript": "5.8.3"
   },
   "scripts": {
     "dev": "vite",
